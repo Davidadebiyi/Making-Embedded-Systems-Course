@@ -15,3 +15,5 @@ Basic components of system are:
 
 
 ![alt text](https://github.com/Davidadebiyi/Making-Embedded-Systems-Course/blob/main/assignments/week-1/images/hardware%20block%20diagram.drawio.png)
+
+![alt text](https://github.com/Davidadebiyi/Making-Embedded-Systems-Course/blob/main/assignments/week-1/images/Software%20Block%20Diagram.drawio.png)
