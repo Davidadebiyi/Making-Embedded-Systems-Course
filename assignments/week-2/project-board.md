@@ -29,7 +29,7 @@ The processor is a STM32F429ZI MCU which is based on the high-performance Arm Co
 
 #### ADC
 
-It has one ADC, a 12-bit.
+It has one 12-bit ADC.
 
 
 ##### 12-bit ADC features
@@ -53,5 +53,5 @@ speed
 - DMA request generation during regular channel conversion
 
 #### Ok, I want this board!
-Dev kit cost - $29.90 (DIgikey)
+Dev kit cost - $29.90 (DIgikey)\
 STM32U585AI MCU - ~20.60 (Digikey but not in stock there or in other distributors I trust)
