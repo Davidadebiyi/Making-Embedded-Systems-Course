@@ -2,7 +2,7 @@
 
 ## Hardware Block Diagram
 
-![alt text](https://github.com/Davidadebiyi/Making-Embedded-Systems-Course/blob/main/assignments/week-2/images/Discovery-IoT-board.drawio.png)
+![alt text](https://github.com/Davidadebiyi/Making-Embedded-Systems-Course/blob/main/assignments/week-2/images/STM32F429-discovery-board.drawio.png)
 
 
 ## Summary
