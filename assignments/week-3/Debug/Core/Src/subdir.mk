@@ -12,7 +12,6 @@ C_SRCS += \
 ../Core/Src/i2c.c \
 ../Core/Src/ltdc.c \
 ../Core/Src/main.c \
-../Core/Src/main2.c \
 ../Core/Src/spi.c \
 ../Core/Src/stm32f4xx_hal_msp.c \
 ../Core/Src/stm32f4xx_hal_timebase_tim.c \
@@ -32,7 +31,6 @@ OBJS += \
 ./Core/Src/i2c.o \
 ./Core/Src/ltdc.o \
 ./Core/Src/main.o \
-./Core/Src/main2.o \
 ./Core/Src/spi.o \
 ./Core/Src/stm32f4xx_hal_msp.o \
 ./Core/Src/stm32f4xx_hal_timebase_tim.o \
@@ -52,7 +50,6 @@ C_DEPS += \
 ./Core/Src/i2c.d \
 ./Core/Src/ltdc.d \
 ./Core/Src/main.d \
-./Core/Src/main2.d \
 ./Core/Src/spi.d \
 ./Core/Src/stm32f4xx_hal_msp.d \
 ./Core/Src/stm32f4xx_hal_timebase_tim.d \
@@ -72,7 +69,7 @@ Core/Src/%.o: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/crc.d ./Core/Src/crc.o ./Core/Src/dma2d.d ./Core/Src/dma2d.o ./Core/Src/fmc.d ./Core/Src/fmc.o ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/i2c.d ./Core/Src/i2c.o ./Core/Src/ltdc.d ./Core/Src/ltdc.o ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main2.d ./Core/Src/main2.o ./Core/Src/spi.d ./Core/Src/spi.o ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_timebase_tim.d ./Core/Src/stm32f4xx_hal_timebase_tim.o ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/tim.d ./Core/Src/tim.o ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usb_otg.d ./Core/Src/usb_otg.o
+	-$(RM) ./Core/Src/crc.d ./Core/Src/crc.o ./Core/Src/dma2d.d ./Core/Src/dma2d.o ./Core/Src/fmc.d ./Core/Src/fmc.o ./Core/Src/gpio.d ./Core/Src/gpio.o ./Core/Src/i2c.d ./Core/Src/i2c.o ./Core/Src/ltdc.d ./Core/Src/ltdc.o ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/spi.d ./Core/Src/spi.o ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_timebase_tim.d ./Core/Src/stm32f4xx_hal_timebase_tim.o ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/tim.d ./Core/Src/tim.o ./Core/Src/usart.d ./Core/Src/usart.o ./Core/Src/usb_otg.d ./Core/Src/usb_otg.o
 
 .PHONY: clean-Core-2f-Src
 

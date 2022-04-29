@@ -55,10 +55,13 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern HCD_HandleTypeDef hhcd_USB_OTG_HS;
+extern DMA2D_HandleTypeDef hdma2d;
+extern LTDC_HandleTypeDef hltdc;
 extern TIM_HandleTypeDef htim6;
 
 /* USER CODE BEGIN EV */
-extern uint16_t tDelay;
+
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -200,28 +203,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles EXTI line0 interrupt.
-  */
-void EXTI0_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI0_IRQn 0 */
-	/* debouncing */
-	for(int i = 0; i < 65535; i++);
-	if(HAL_GPIO_ReadPin(pushbutton_GPIO_Port, pushbutton_Pin))
-		{
-			if(HAL_Delay =! 300)
-				HAL_Delay = 1000;
-			else
-				HAL_Delay = 300;
-		}
-  /* USER CODE END EXTI0_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(pushbutton_Pin);
-  /* USER CODE BEGIN EXTI0_IRQn 1 */
-
-  /* USER CODE END EXTI0_IRQn 1 */
-}
-
-/**
   * @brief This function handles TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts.
   */
 void TIM6_DAC_IRQHandler(void)
@@ -233,6 +214,48 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
 
   /* USER CODE END TIM6_DAC_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USB On The Go HS global interrupt.
+  */
+void OTG_HS_IRQHandler(void)
+{
+  /* USER CODE BEGIN OTG_HS_IRQn 0 */
+
+  /* USER CODE END OTG_HS_IRQn 0 */
+  HAL_HCD_IRQHandler(&hhcd_USB_OTG_HS);
+  /* USER CODE BEGIN OTG_HS_IRQn 1 */
+
+  /* USER CODE END OTG_HS_IRQn 1 */
+}
+
+/**
+  * @brief This function handles LTDC global interrupt.
+  */
+void LTDC_IRQHandler(void)
+{
+  /* USER CODE BEGIN LTDC_IRQn 0 */
+
+  /* USER CODE END LTDC_IRQn 0 */
+  HAL_LTDC_IRQHandler(&hltdc);
+  /* USER CODE BEGIN LTDC_IRQn 1 */
+
+  /* USER CODE END LTDC_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA2D global interrupt.
+  */
+void DMA2D_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA2D_IRQn 0 */
+
+  /* USER CODE END DMA2D_IRQn 0 */
+  HAL_DMA2D_IRQHandler(&hdma2d);
+  /* USER CODE BEGIN DMA2D_IRQn 1 */
+
+  /* USER CODE END DMA2D_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
