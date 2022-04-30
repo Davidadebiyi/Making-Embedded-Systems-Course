@@ -5,18 +5,20 @@
 #include <stdio.h>
 
 //use the windows conio.h for kbhit, or a POSIX reproduction
+/*
 #ifdef _WIN32
 #include <conio.h>
-#else
-#include "conioCompat.h"
-#endif
+*/
+/*#else*/
+//#include "conioCompat.h"
+/*#endif*/
 
-static int getch_noblock() {
+/*static int getch_noblock() {
     if (_kbhit())
         return _getch();
     else
         return EOF;
-}
+}*/
 
 eConsoleError ConsoleIoInit(void)
 {

@@ -1,0 +1,6 @@
+consoleCommands.c:34:25:ConsoleCommandComment	16	static
+consoleCommands.c:41:25:ConsoleCommandHelp	32	static
+consoleCommands.c:62:25:ConsoleCommandParamExampleInt16	24	static
+consoleCommands.c:78:25:ConsoleCommandParamExampleHexUint16	24	static
+consoleCommands.c:92:25:ConsoleCommandVer	24	static
+consoleCommands.c:104:31:ConsoleCommandsGetTable	4	static

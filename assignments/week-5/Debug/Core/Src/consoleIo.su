@@ -1,0 +1,3 @@
+consoleIo.c:23:15:ConsoleIoInit	4	static
+consoleIo.c:27:15:ConsoleIoReceive	32	static
+consoleIo.c:43:15:ConsoleIoSendString	16	static
