@@ -24,18 +24,22 @@ eConsoleError ConsoleIoInit(void)
 {
 	return CONSOLE_SUCCESS;
 }
+
 eConsoleError ConsoleIoReceive(uint8_t *buffer, const uint32_t bufferLength, uint32_t *readLength)
 {
 	uint32_t i = 0;
 	char ch;
 
-	ch = getch_noblock();
-	while ( ( EOF != ch ) && ( i < bufferLength ) )
-	{
-		buffer[i] = (uint8_t) ch;
-		i++;
-		ch = getch_noblock();
-	}
+/*
+//	while (uart_is_readable(uart7))
+//	{
+//  	ch = uart_getc(uart7);
+//  	uart_putc(uart7, ch); // echo
+//		buffer[i] = (uint8_t) ch;
+//		i++;
+//	}
+*/
+
 	*readLength = i;
 	return CONSOLE_SUCCESS;
 }
