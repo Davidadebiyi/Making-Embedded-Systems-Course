@@ -277,6 +277,7 @@ int main(void)
 	  lcd_init();
 	  HAL_Delay(1000);
 	  lcd_clear();
+	  /* Display current temperature */
 	  Display_Temp(Temperature);
 //	  Display_Rh(Humidity);
 
