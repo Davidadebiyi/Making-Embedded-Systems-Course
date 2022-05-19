@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "ltdc.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -248,6 +249,7 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C2_Init();
   MX_TIM6_Init();
+  MX_LTDC_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start(&htim6);
