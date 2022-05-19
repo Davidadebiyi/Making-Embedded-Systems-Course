@@ -22,6 +22,8 @@ The components used to build the project are:
 - Switch-mode power supply module (external)
 
 
+![Hardware Block Diagram](images/hardware_block_diagram.png)
+
 The project is built around the STM32F4 Discovery kit. This board features an STM32F429ZIT6 MCU,
 which is a lhigh-performance Cortex-M4 processor with a 64-Mbit SDRAM memory. 
 
