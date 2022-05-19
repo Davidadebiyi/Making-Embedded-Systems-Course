@@ -1,6 +1,6 @@
 # Application Description
 
-This project is a smart coaster [smart coaster](link).
+This project is a [smart coaster](link).
 It uses IMU sensors to determine the postion of the coaster. Essentially it determines if the coaster has been moved. 
 It also has temperature sensors to determine the temperature of the covered drink.
 This information is then sent to a phone via a bluetooth module. A buzzer is also used to alert the user of the drink temperature and state of coaster. 
