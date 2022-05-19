@@ -1,5 +1,7 @@
 # Application Description
 
+![Smart Drink-lid](images/IMG_20220519_105516.jpg)
+
 This project is a [smart coaster](link).
 It uses IMU sensors to determine the postion of the coaster. Essentially it determines if the coaster has been moved. 
 It also has temperature sensors to determine the temperature of the covered drink.
