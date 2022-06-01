@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "i2c-lcd.h"
 #include "DHT.h"
+#include "mpu6050.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -69,6 +70,21 @@ void delay (uint16_t time)
 	/* change your code here for the delay in microseconds */
 	__HAL_TIM_SET_COUNTER(&htim6, 0);
 	while ((__HAL_TIM_GET_COUNTER(&htim6))<time);
+}
+
+void buzzer_beep(void)
+{
+	int x = 0;
+	for(x=10; x<30; x=x+1)
+	{
+	  __HAL_TIM_SET_AUTORELOAD(&htim2, x*2);
+	  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2, x);
+	}
+}
+
+void stop_buzzer(void)
+{
+  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2, 0);
 }
 
 void Display_Temp (float Temp)
@@ -250,10 +266,14 @@ int main(void)
   MX_I2C2_Init();
   MX_TIM6_Init();
   MX_LTDC_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
 
   HAL_TIM_Base_Start(&htim6);
 
+
+  /* Initialize the PWM timer */
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2); 
 
   lcd_init();
 
@@ -272,40 +292,71 @@ int main(void)
   while (1)
   {
 
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 
-	  lcd_init();
-	  HAL_Delay(1000);
-	  lcd_clear();
-	  /* Display current temperature */
-	  Display_Temp(Temperature);
-//	  Display_Rh(Humidity);
+//	int x;
+//	for(x=10; x<30; x=x+1)
+//	{
+//	  __HAL_TIM_SET_AUTORELOAD(&htim2, x*2);
+//	  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2, x);
+//	  HAL_Delay(100);
+//	}
+
+//	  int x;
+//	//for(x=10; x<30; x=x+1)
+//
+//	  __HAL_TIM_SET_AUTORELOAD(&htim2, x*2);
+//	  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2, x);
+//	  HAL_Delay(100);
+
+	  buzzer_beep();
+//	  HAL_Delay(500);
+
+	  HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_SET);
+	  HAL_Delay(500);
+	  HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_RESET);
+	  HAL_Delay(500);
+	  stop_buzzer();
+	  HAL_Delay(500);
+	  // read the Accelerometer and Gyro values
+
+//	  MPU6050_Read_Accel();
+//	  MPU6050_Read_Gyro();
 
 
-
-	  DHT11_Start();
-	  Presence = DHT11_Check_Response();
-	  Rh_byte1 = DHT11_Read ();
-      Rh_byte2 = DHT11_Read ();
-	  Temp_byte1 = DHT11_Read ();
-	  Temp_byte2 = DHT11_Read ();
-	  SUM = DHT11_Read();
-
-
-
-	  TEMP = Temp_byte1;
-	  RH = Rh_byte1;
-
-	  Temperature = (float) TEMP;
-	  Humidity = (float) RH;
-
-
-
-
-	  HAL_Delay(1000);
-	  lcd_clear();
+//	  lcd_init();
+//	  HAL_Delay(1000);
+//	  lcd_clear();
+//	  /* Display current temperature */
+//	  Display_Temp(Temperature);
+////	  Display_Rh(Humidity);
+//
+//
+//
+//	  DHT11_Start();
+//	  Presence = DHT11_Check_Response();
+//	  Rh_byte1 = DHT11_Read ();
+//      Rh_byte2 = DHT11_Read ();
+//	  Temp_byte1 = DHT11_Read ();
+//	  Temp_byte2 = DHT11_Read ();
+//	  SUM = DHT11_Read();
+//
+//
+//
+//	  TEMP = Temp_byte1;
+//	  RH = Rh_byte1;
+//
+//	  Temperature = (float) TEMP;
+//	  Humidity = (float) RH;
+//
+//
+//
+//
+//	  HAL_Delay(1000);
+//	  lcd_clear();
 
 
   }
