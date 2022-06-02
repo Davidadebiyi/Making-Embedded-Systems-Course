@@ -312,7 +312,7 @@ int main(void)
 //	  __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_2, x);
 //	  HAL_Delay(100);
 
-	  buzzer_beep();
+//	  buzzer_beep();
 //	  HAL_Delay(500);
 
 	  HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_SET);
@@ -327,37 +327,41 @@ int main(void)
 //	  MPU6050_Read_Gyro();
 
 
-//	  lcd_init();
-//	  HAL_Delay(1000);
-//	  lcd_clear();
-//	  /* Display current temperature */
-//	  Display_Temp(Temperature);
-////	  Display_Rh(Humidity);
-//
-//
-//
-//	  DHT11_Start();
-//	  Presence = DHT11_Check_Response();
-//	  Rh_byte1 = DHT11_Read ();
-//      Rh_byte2 = DHT11_Read ();
-//	  Temp_byte1 = DHT11_Read ();
-//	  Temp_byte2 = DHT11_Read ();
-//	  SUM = DHT11_Read();
-//
-//
-//
-//	  TEMP = Temp_byte1;
-//	  RH = Rh_byte1;
-//
-//	  Temperature = (float) TEMP;
-//	  Humidity = (float) RH;
-//
-//
-//
-//
-//	  HAL_Delay(1000);
-//	  lcd_clear();
+	  lcd_init();
+	  HAL_Delay(1000);
+	  lcd_clear();
+	  /* Display current temperature */
+	  Display_Temp(Temperature);
+//	  Display_Rh(Humidity);
 
+
+
+	  DHT11_Start();
+	  Presence = DHT11_Check_Response();
+	  Rh_byte1 = DHT11_Read ();
+      Rh_byte2 = DHT11_Read ();
+	  Temp_byte1 = DHT11_Read ();
+	  Temp_byte2 = DHT11_Read ();
+	  SUM = DHT11_Read();
+
+
+
+	  TEMP = Temp_byte1;
+	  RH = Rh_byte1;
+
+	  Temperature = (float) TEMP;
+	  Humidity = (float) RH;
+
+	  if (Temperature > 22.0){
+		  buzzer_beep();
+	  }
+
+
+
+
+	  HAL_Delay(1000);
+	  lcd_clear();
+	  stop_buzzer();
 
   }
   /* USER CODE END 3 */

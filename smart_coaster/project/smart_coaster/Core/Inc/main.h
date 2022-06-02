@@ -105,8 +105,6 @@ void Error_Handler(void);
 #define ACP_RST_GPIO_Port GPIOA
 #define OTG_FS_PSO_Pin GPIO_PIN_4
 #define OTG_FS_PSO_GPIO_Port GPIOC
-#define OTG_FS_OC_Pin GPIO_PIN_5
-#define OTG_FS_OC_GPIO_Port GPIOC
 #define R3_Pin GPIO_PIN_0
 #define R3_GPIO_Port GPIOB
 #define R6_Pin GPIO_PIN_1
