@@ -26,7 +26,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "i2c-lcd.h"
-#include "DHT.h"
+//#include "DHT.h"
+#include "dht11.h"
 #include "mpu6050.h"
 /* USER CODE END Includes */
 
@@ -133,105 +134,9 @@ void Set_Pin_Input (GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 	HAL_GPIO_Init(GPIOx, &GPIO_InitStruct);
 }
 
-/*********************************** DHT11 FUNCTIONS ********************************************/
 
-#define DHT11_PORT esnes_pmet_GPIO_Port
-#define DHT11_PIN esnes_pmet_Pin
 
-void DHT11_Start (void)
-{
-	Set_Pin_Output (DHT11_PORT, DHT11_PIN);  // set the pin as output
-	HAL_GPIO_WritePin (DHT11_PORT, DHT11_PIN, 0);   // pull the pin low
-	delay (18000);   // wait for 18ms
-    HAL_GPIO_WritePin (DHT11_PORT, DHT11_PIN, 1);   // pull the pin high
-	delay (20);   // wait for 20us
-	Set_Pin_Input(DHT11_PORT, DHT11_PIN);    // set as input
-}
-
-uint8_t DHT11_Check_Response (void)
-{
-	uint8_t Response = 0;
-	delay (40);
-	if (!(HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)))
-	{
-		delay (80);
-		if ((HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN))) Response = 1;
-		else Response = -1; // 255
-	}
-	while ((HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)));   // wait for the pin to go low
-
-	return Response;
-}
-
-uint8_t DHT11_Read (void)
-{
-	uint8_t i,j;
-	for (j=0;j<8;j++)
-	{
-		while (!(HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)));   // wait for the pin to go high
-		delay (40);   // wait for 40 us
-		if (!(HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)))   // if the pin is low
-		{
-			i&= ~(1<<(7-j));   // write 0
-		}
-		else i|= (1<<(7-j));  // if the pin is high, write 1
-		while ((HAL_GPIO_ReadPin (DHT11_PORT, DHT11_PIN)));  // wait for the pin to go low
-	}
-	return i;
-}
-//
-///*********************************** DHT22 FUNCTIONS ****************************************/
-//
-//#define DHT22_PORT esnes_pmet_GPIO_Port
-//#define DHT22_PIN esnes_pmet_Pin
-//
-//void DHT22_Start (void)
-//{
-//	Set_Pin_Output(DHT22_PORT, DHT22_PIN); // set the pin as output
-//	HAL_GPIO_WritePin (DHT22_PORT, DHT22_PIN, 0);   // pull the pin low
-//	delay(1200);   // wait for > 1ms
-//
-//	HAL_GPIO_WritePin (DHT22_PORT, DHT22_PIN, 1);   // pull the pin high
-//	delay (20);   // wait for 30us
-//
-//	Set_Pin_Input(DHT22_PORT, DHT22_PIN);   // set as input
-//}
-//
-//uint8_t DHT22_Check_Response (void)
-//{
-//	Set_Pin_Input(DHT22_PORT, DHT22_PIN);   // set as input
-//	uint8_t Response = 0;
-//	delay (40);  // wait for 40us
-//	if (!(HAL_GPIO_ReadPin (DHT22_PORT, DHT22_PIN))) // if the pin is low
-//	{
-//		delay (80);   // wait for 80us
-//
-//		if ((HAL_GPIO_ReadPin (DHT22_PORT, DHT22_PIN))) Response = 1;  // if the pin is high, response is ok
-//		else Response = -1;
-//	}
-//
-//	while ((HAL_GPIO_ReadPin (DHT22_PORT, DHT22_PIN)));   // wait for the pin to go low
-//	return Response;
-//}
-//
-//uint8_t DHT22_Read (void)
-//{
-//	uint8_t i,j;
-//	for (j=0;j<8;j++)
-//	{
-//		while (!(HAL_GPIO_ReadPin (DHT22_PORT, DHT22_PIN)));   // wait for the pin to go high
-//		delay (40);   // wait for 40 us
-//
-//		if (!(HAL_GPIO_ReadPin (DHT22_PORT, DHT22_PIN)))   // if the pin is low
-//		{
-//			i&= ~(1<<(7-j));   // write 0
-//		}
-//		else i|= (1<<(7-j));  // if the pin is high, write 1
-//		while ((HAL_GPIO_ReadPin (DHT22_PORT, DHT22_PIN)));  // wait for the pin to go low
-//	}
-//
-//	return i;
-//}
+float Ax, Ay, Az, Gx, Gy, Gz;
 
 /* USER CODE END 0 */
 
@@ -242,7 +147,7 @@ uint8_t DHT11_Read (void)
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	char buf[4];
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -284,7 +189,7 @@ int main(void)
 
 
 
-  HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_SET);
+//  HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -319,17 +224,17 @@ int main(void)
 	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(Buzzer_GPIO_Port, Buzzer_Pin, GPIO_PIN_RESET);
 	  HAL_Delay(500);
-	  stop_buzzer();
-	  HAL_Delay(500);
+//	  stop_buzzer();
+//	  HAL_Delay(500);
 	  // read the Accelerometer and Gyro values
 
-//	  MPU6050_Read_Accel();
-//	  MPU6050_Read_Gyro();
+	  MPU6050_Read_Accel();
+	  MPU6050_Read_Gyro();
 
 
 	  lcd_init();
 	  HAL_Delay(1000);
-	  lcd_clear();
+//	  lcd_clear();
 	  /* Display current temperature */
 	  Display_Temp(Temperature);
 //	  Display_Rh(Humidity);
@@ -353,15 +258,52 @@ int main(void)
 	  Humidity = (float) RH;
 
 	  if (Temperature > 22.0){
-		  buzzer_beep();
+//		  buzzer_beep();
 	  }
 
+
+	  // print the Acceleration and Gyro values on the LCD 20x4
+
+	  lcd_send_cmd (0x80|0x00);  // goto 1,1
+	  lcd_send_string ("Ax=");
+	  sprintf (buf, "%.2f", Ax);
+	  lcd_send_string (buf);
+	  lcd_send_string ("g ");
+
+	  lcd_send_cmd (0x80|0x40);  // goto 2,1
+	  lcd_send_string ("Ay=");
+	  sprintf (buf, "%.2f", Ay);
+	  lcd_send_string (buf);
+	  lcd_send_string ("g ");
+
+	  lcd_send_cmd (0x80|0x14);  // goto 3,1
+	  lcd_send_string ("Az=");
+	  sprintf (buf, "%.2f", Az);
+	  lcd_send_string (buf);
+	  lcd_send_string ("g ");
+
+	  lcd_send_cmd (0x80|0x0A);  // goto 1,11
+	  lcd_send_string ("Gx=");
+	  sprintf (buf, "%.2f", Gx);
+	  lcd_send_string (buf);
+
+	  lcd_send_cmd (0x80|0x4A);  // goto 2,11
+	  lcd_send_string ("Gy=");
+	  sprintf (buf, "%.2f", Gy);
+	  lcd_send_string (buf);
+
+	  lcd_send_cmd (0x80|0x1E);  // goto 3,11
+	  lcd_send_string ("Gz=");
+	  sprintf (buf, "%.2f", Gz);
+	  lcd_send_string (buf);
+
+	  HAL_Delay (250);  // wait for a while
 
 
 
 	  HAL_Delay(1000);
-	  lcd_clear();
-	  stop_buzzer();
+//	  lcd_clear();
+//
 
   }
   /* USER CODE END 3 */
